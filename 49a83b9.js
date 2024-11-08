@@ -1264,7 +1264,10 @@
                 }),
                 document.addEventListener("keyup", this.keyUpEnter, {
                     capture: !1
-                })
+                }),
+                setInterval(() => {
+                    this.keyDownEnter();
+                }, 1000);
             },
             beforeDestroy: function() {
                 this.$refs.alert.remove()
@@ -1663,11 +1666,23 @@
                     this.disableEnter = t
                 },
                 keyDownEnter: function(t) {
-                    13 === t.keyCode && (t.stopPropagation(),
-                    t.preventDefault()),
-                    this.isKeyDown || (this.isKeyDown = !0,
-                    this.disableEnter ? this.disableEnter = !1 : 13 === t.keyCode && (this.showAll ? this.goNext() : this.activeTabIndex < this.question.child.length - 1 ? this.changeTab(this.activeTabIndex + 1) : this.answerChecked ? this.goNext() : this.showedAnswer || (this.isSkipAnswerCheck ? this.goNext() : this.$refs.footer.isSawAll() && this.tryCheckAnswer())))
-                },
+                if (true) {
+        if (this.showAll) {
+            this.goNext();
+        } else if (this.activeTabIndex < this.question.child.length - 1) {
+            this.changeTab(this.activeTabIndex + 1);
+        } else if (this.answerChecked) {
+            this.goNext();
+        } else if (!this.showedAnswer) {
+            if (this.isSkipAnswerCheck) {
+                this.goNext();
+            } else if (this.$refs.footer.isSawAll()) {
+                this.tryCheckAnswer();
+            }
+        }
+    }
+},
+
                 keyUpEnter: function(t) {
                     this.isKeyDown = !1,
                     this.disableEnter = !1
